@@ -1,25 +1,25 @@
-package simpleGraphImplementation;
+package graphBasicPractice;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
-
-
-
 
 public class DepthFirstSearch {
     
     GraphVertex[] allVertices;
     private int time=1;
+    private boolean[] isVertexASource;
     
     public DepthFirstSearch(GraphVertex[] allVertices){
         this.allVertices = allVertices;
+        isVertexASource = new boolean[allVertices.length];
     }
     
     public void search() {
         
         for(int i=1;i<allVertices.length;i++){
+            DFSForest forest = new DFSForest();
             if(allVertices[i].getColor()==GraphVertex.WHITE){
+                isVertexASource[i]=true;
                 System.out.println(i  +" is white. writing start time " + time);
                 allVertices[i].setStartTime(time);
                 time++;

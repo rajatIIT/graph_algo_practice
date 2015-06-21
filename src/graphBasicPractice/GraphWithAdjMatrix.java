@@ -1,4 +1,4 @@
-package simpleGraphImplementation;
+package graphBasicPractice;
 
 import java.util.Scanner;
 
