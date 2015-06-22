@@ -8,6 +8,13 @@ public class Node {
         data = 0;
         this.nodeID = nodeID;
     }
+    
+    protected Node(int nodeID,int data){
+        this.data=data;
+        right = null;
+        left = null;
+        this.nodeID = nodeID;
+    }
 
     protected Node(Node left, Node right, int nodeID) {
         this.left = left;

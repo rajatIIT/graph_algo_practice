@@ -13,6 +13,7 @@ public class BinaryTree {
 
     public BinaryTree() {
         start();
+      //  TreeOperations myOP = new TreeOperations();
     }
 
     public void start() {
@@ -25,6 +26,8 @@ public class BinaryTree {
             //System.out.println(" 3) Delete branch from the binary tree.");
             System.out.println(" 4) View the binary tree.");
             System.out.println(" 5) Exit.");
+            System.out.println(" 6) Create a new binary search tree.");
+            System.out.println(" 7) Insert into binary search tree.");
 
             int nextInput = inputScanner.nextInt();
             if (nextInput == 1) {
@@ -83,9 +86,59 @@ public class BinaryTree {
                 System.out.println();
             } else if (nextInput == 5) {
                 break;
+            } else if (nextInput ==6) {
+                // create a new binary search tree.
+                
+                // does not already have a root node. 
+                System.out.println("Enter the value of the root node: ");
+                int rootNodeVal = inputScanner.nextInt();
+                
+                rootNode = new Node(idCounter,rootNodeVal);
+                idCounter++;
+                nodeList.add(rootNode);
+                System.out.println("");
+                
+                System.out.println("Created tree with one node. Use insert to add more nodes.");
+                
+            } else if (nextInput==7 ){
+                System.out.println("Enter the value to be inserted: ");
+                int value = inputScanner.nextInt();
+                insertIntoBST(rootNode,value);
             }
 
         }
         inputScanner.close();
+    }
+    
+    
+    public void insertIntoBST(Node node,int data){
+        
+        // traverse from root to insert into BST.
+        if(data>node.getData()) {
+            // insert into the right side of the tree;
+            if(node.getRight()==null){
+                // insert the node right here left to this node. add the new node to the list of nodes. 
+                Node nodeToBeInserted = new Node(idCounter,data);
+                idCounter++;
+                node.setRight(nodeToBeInserted);
+                nodeList.add(nodeToBeInserted);
+            } else
+                insertIntoBST(node.getRight(), data);
+           
+        } else if (data<node.getData()){
+            // insert into the left side of the tree;
+            if(node.getLeft()==null){
+                // insert the node right here: to the left
+                Node nodeToBeInserted = new Node(idCounter,data);
+                idCounter++;
+                node.setLeft(nodeToBeInserted);
+                nodeList.add(nodeToBeInserted);
+            } else 
+                insertIntoBST(node.getLeft(), data);
+            
+            
+        } else if (data==node.getData()) {
+            System.out.println("Data cannot be inserted since duplicate nodes are not allowed in BST.");
+        }
     }
 }
