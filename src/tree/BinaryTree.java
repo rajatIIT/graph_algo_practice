@@ -30,6 +30,7 @@ public class BinaryTree {
             System.out.println(" 7) Insert into binary search tree.");
             System.out.println(" 8) Find inorderSuccessor of a node.");
             System.out.println(" 9) Find kth smallest element from the tree.");
+            System.out.println(" 10) Print elements of tree that lie within a particular range.");
 
             int nextInput = inputScanner.nextInt();
             if (nextInput == 1) {
@@ -120,6 +121,11 @@ public class BinaryTree {
                 System.out.println("Enter the number of k where you want kTH order statistic:");
                 int myK = inputScanner.nextInt();
                 returnkthStaticstic(myK, rootNode);
+            } else if (nextInput==10){
+                System.out.println("Enter the initial and the final values of the range: ");
+                int start = inputScanner.nextInt();
+                int end = inputScanner.nextInt();
+                printBetween(start, end, rootNode);
             }
 
         }
@@ -193,6 +199,21 @@ public class BinaryTree {
         if(rootNode.getRight()!=null)
         returnkthStaticstic(k, rootNode.getRight());    
      
+    }
+    
+    
+    public void printBetween(int start, int end, Node node) {
+        
+        // perform inOrder traversal
+        
+        if(node.getLeft()!=null)
+            printBetween(start, end, node.getLeft());
+        
+        if(node.getData()>start && node.getData()<end)
+            System.out.println(node.getData() +" lies in the range.");
+                
+        if(node.getRight()!=null)
+            printBetween(start, end, node.getRight());
     }
     
     
