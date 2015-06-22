@@ -29,6 +29,7 @@ public class BinaryTree {
             System.out.println(" 6) Create a new binary search tree.");
             System.out.println(" 7) Insert into binary search tree.");
             System.out.println(" 8) Find inorderSuccessor of a node.");
+            System.out.println(" 9) Find kth smallest element from the tree.");
 
             int nextInput = inputScanner.nextInt();
             if (nextInput == 1) {
@@ -114,6 +115,11 @@ public class BinaryTree {
                     System.out.println("No successor!");
                 else
                 inOrderSuccessor(inputNode.getRight());
+            } else if (nextInput==9 ){
+                countOfSort=0;
+                System.out.println("Enter the number of k where you want kTH order statistic:");
+                int myK = inputScanner.nextInt();
+                returnkthStaticstic(myK, rootNode);
             }
 
         }
@@ -159,4 +165,35 @@ public class BinaryTree {
         } else
             inOrderSuccessor(inputNode.getLeft());
     }
+    
+    
+    public void findStatic(int number, Node rootNode) {
+        
+        // find the numberTH smallest number in the tree.
+        
+        // traverse left tree
+        
+        
+        // traverse root
+        
+        
+        // traverse right tree
+        
+    }
+    
+    int countOfSort=0;
+    public void returnkthStaticstic(int k, Node rootNode) {
+        if(rootNode.getLeft()!=null)
+            returnkthStaticstic(k, rootNode.getLeft());
+        
+        countOfSort++;
+        if(countOfSort==k)
+            System.out.println(k + " th item is " + rootNode.getData());
+        
+        if(rootNode.getRight()!=null)
+        returnkthStaticstic(k, rootNode.getRight());    
+     
+    }
+    
+    
 }
