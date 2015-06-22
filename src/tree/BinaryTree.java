@@ -28,6 +28,7 @@ public class BinaryTree {
             System.out.println(" 5) Exit.");
             System.out.println(" 6) Create a new binary search tree.");
             System.out.println(" 7) Insert into binary search tree.");
+            System.out.println(" 8) Find inorderSuccessor of a node.");
 
             int nextInput = inputScanner.nextInt();
             if (nextInput == 1) {
@@ -104,6 +105,15 @@ public class BinaryTree {
                 System.out.println("Enter the value to be inserted: ");
                 int value = inputScanner.nextInt();
                 insertIntoBST(rootNode,value);
+            } else if (nextInput==8) {
+                System.out.println("Enter the number of node for which inorder successor has to be found. ");
+                int nodeNo = inputScanner.nextInt();
+                
+                Node inputNode = nodeList.get(nodeNo);
+                if(inputNode.getRight()==null)
+                    System.out.println("No successor!");
+                else
+                inOrderSuccessor(inputNode.getRight());
             }
 
         }
@@ -140,5 +150,13 @@ public class BinaryTree {
         } else if (data==node.getData()) {
             System.out.println("Data cannot be inserted since duplicate nodes are not allowed in BST.");
         }
+    }
+
+    public void inOrderSuccessor(Node inputNode){
+        
+        if(inputNode.getLeft()==null){
+            System.out.println(" (" +  inputNode.getNodeID() + ", " + inputNode.getData() + ") is successor.");
+        } else
+            inOrderSuccessor(inputNode.getLeft());
     }
 }
