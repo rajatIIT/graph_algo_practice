@@ -23,6 +23,16 @@ public class Node {
         this.nodeID = nodeID;
     }
     
+    protected int height;
+    
+    protected int getHeight() {
+        return height;
+    }
+
+    protected void setHeight(int height) {
+        this.height = height;
+    }
+
     protected int nodeID;
 
     protected int getNodeID() {

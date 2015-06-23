@@ -13,7 +13,7 @@ public class BinaryTree {
 
     public BinaryTree() {
         start();
-      //  TreeOperations myOP = new TreeOperations();
+        // TreeOperations myOP = new TreeOperations();
     }
 
     public void start() {
@@ -23,7 +23,7 @@ public class BinaryTree {
             System.out.println("What do you want to do ?");
             System.out.println(" 1) Create a new binary tree.");
             System.out.println(" 2) Add/Update branch to the binary tree.");
-            //System.out.println(" 3) Delete branch from the binary tree.");
+            // System.out.println(" 3) Delete branch from the binary tree.");
             System.out.println(" 4) View the binary tree.");
             System.out.println(" 5) Exit.");
             System.out.println(" 6) Create a new binary search tree.");
@@ -31,6 +31,7 @@ public class BinaryTree {
             System.out.println(" 8) Find inorderSuccessor of a node.");
             System.out.println(" 9) Find kth smallest element from the tree.");
             System.out.println(" 10) Print elements of tree that lie within a particular range.");
+            System.out.println(" 11) check if the tree is balanced.");
 
             int nextInput = inputScanner.nextInt();
             if (nextInput == 1) {
@@ -67,7 +68,8 @@ public class BinaryTree {
                     continue;
                 }
             } else if (nextInput == 4) {
-                System.out.println("Displaying the binary tree. in the format <Node # :Node Value>");
+                System.out
+                        .println("Displaying the binary tree. in the format <Node # :Node Value>");
                 Iterator<Node> nodeIterator = nodeList.iterator();
                 while (nodeIterator.hasNext()) {
                     Node nextNode = nodeIterator.next();
@@ -89,132 +91,193 @@ public class BinaryTree {
                 System.out.println();
             } else if (nextInput == 5) {
                 break;
-            } else if (nextInput ==6) {
+            } else if (nextInput == 6) {
                 // create a new binary search tree.
-                
-                // does not already have a root node. 
+
+                // does not already have a root node.
                 System.out.println("Enter the value of the root node: ");
                 int rootNodeVal = inputScanner.nextInt();
-                
-                rootNode = new Node(idCounter,rootNodeVal);
+
+                rootNode = new Node(idCounter, rootNodeVal);
                 idCounter++;
                 nodeList.add(rootNode);
                 System.out.println("");
-                
+
                 System.out.println("Created tree with one node. Use insert to add more nodes.");
-                
-            } else if (nextInput==7 ){
-                System.out.println("Enter the value to be inserted: ");
+
+            } else if (nextInput == 7) {
+                System.out.println("Enter the values to be inserted (and -1 when you are done): ");
                 int value = inputScanner.nextInt();
-                insertIntoBST(rootNode,value);
-            } else if (nextInput==8) {
-                System.out.println("Enter the number of node for which inorder successor has to be found. ");
+                while (value != -1) {
+                    insertIntoBST(rootNode, value);
+                    value = inputScanner.nextInt();
+                }
+            } else if (nextInput == 8) {
+                System.out
+                        .println("Enter the number of node for which inorder successor has to be found. ");
                 int nodeNo = inputScanner.nextInt();
-                
+
                 Node inputNode = nodeList.get(nodeNo);
-                if(inputNode.getRight()==null)
+                if (inputNode.getRight() == null)
                     System.out.println("No successor!");
                 else
-                inOrderSuccessor(inputNode.getRight());
-            } else if (nextInput==9 ){
-                countOfSort=0;
+                    inOrderSuccessor(inputNode.getRight());
+            } else if (nextInput == 9) {
+                countOfSort = 0;
                 System.out.println("Enter the number of k where you want kTH order statistic:");
                 int myK = inputScanner.nextInt();
                 returnkthStaticstic(myK, rootNode);
-            } else if (nextInput==10){
+            } else if (nextInput == 10) {
                 System.out.println("Enter the initial and the final values of the range: ");
                 int start = inputScanner.nextInt();
                 int end = inputScanner.nextInt();
                 printBetween(start, end, rootNode);
+            } else if (nextInput == 11) {
+                leafDepth = 0;
+                isLeafDepthSet = false;
+                System.out.println("*No output after this line means tree is balanced*");
+                computeTreeDepth(0, rootNode);
+                isTreeHeightBalanced(rootNode);
             }
 
         }
         inputScanner.close();
     }
-    
-    
-    public void insertIntoBST(Node node,int data){
-        
+
+    /**
+     * is tree height balanced?
+     * 
+     * find the height of all leaf nodes. if height of even one is different,
+     * return false.
+     * 
+     * checkTreeHeight(Node n)
+     * 
+     * if n is leaf and height!=lastUpdatedHeight print not balanced.
+     * 
+     * else
+     * 
+     * checkTreeHeight(left) checkTreeheight(right)
+     * 
+     * @param rootNode
+     * @return
+     */
+    public void isTreeHeightBalanced(Node rootNode) {
+
+        // traverse all the nodes.
+        if (rootNode.getLeft() == null && rootNode.getRight() == null) {
+            // the node is a leaf
+            if (!isLeafDepthSet) {
+                leafDepth = rootNode.getHeight();
+                isLeafDepthSet = true;
+            } else {
+                if (rootNode.getHeight() != leafDepth) {
+                    System.out.println("Not balanced.");
+                }
+            }
+        }
+
+        if (rootNode.getLeft() != null)
+            isTreeHeightBalanced(rootNode.getLeft());
+        if (rootNode.getRight() != null)
+            isTreeHeightBalanced(rootNode.getRight());
+    }
+
+    boolean isBalanced;
+    boolean isLeafDepthSet;
+    int leafDepth;
+
+    public void computeTreeDepth(int height, Node rootNode) {
+
+        rootNode.setHeight(height);
+
+        if (rootNode.getLeft() != null)
+            computeTreeDepth(height + 1, rootNode.getLeft());
+
+        if (rootNode.getRight() != null)
+            computeTreeDepth(height + 1, rootNode.getRight());
+
+    }
+
+    public void insertIntoBST(Node node, int data) {
+
         // traverse from root to insert into BST.
-        if(data>node.getData()) {
+        if (data > node.getData()) {
             // insert into the right side of the tree;
-            if(node.getRight()==null){
-                // insert the node right here left to this node. add the new node to the list of nodes. 
-                Node nodeToBeInserted = new Node(idCounter,data);
+            if (node.getRight() == null) {
+                // insert the node right here left to this node. add the new
+                // node to the list of nodes.
+                Node nodeToBeInserted = new Node(idCounter, data);
                 idCounter++;
                 node.setRight(nodeToBeInserted);
                 nodeList.add(nodeToBeInserted);
             } else
                 insertIntoBST(node.getRight(), data);
-           
-        } else if (data<node.getData()){
+
+        } else if (data < node.getData()) {
             // insert into the left side of the tree;
-            if(node.getLeft()==null){
+            if (node.getLeft() == null) {
                 // insert the node right here: to the left
-                Node nodeToBeInserted = new Node(idCounter,data);
+                Node nodeToBeInserted = new Node(idCounter, data);
                 idCounter++;
                 node.setLeft(nodeToBeInserted);
                 nodeList.add(nodeToBeInserted);
-            } else 
+            } else
                 insertIntoBST(node.getLeft(), data);
-            
-            
-        } else if (data==node.getData()) {
-            System.out.println("Data cannot be inserted since duplicate nodes are not allowed in BST.");
+
+        } else if (data == node.getData()) {
+            System.out
+                    .println("Data cannot be inserted since duplicate nodes are not allowed in BST.");
         }
     }
 
-    public void inOrderSuccessor(Node inputNode){
-        
-        if(inputNode.getLeft()==null){
-            System.out.println(" (" +  inputNode.getNodeID() + ", " + inputNode.getData() + ") is successor.");
+    public void inOrderSuccessor(Node inputNode) {
+
+        if (inputNode.getLeft() == null) {
+            System.out.println(" (" + inputNode.getNodeID() + ", " + inputNode.getData()
+                    + ") is successor.");
         } else
             inOrderSuccessor(inputNode.getLeft());
     }
-    
-    
+
     public void findStatic(int number, Node rootNode) {
-        
+
         // find the numberTH smallest number in the tree.
-        
+
         // traverse left tree
-        
-        
+
         // traverse root
-        
-        
+
         // traverse right tree
-        
+
     }
-    
-    int countOfSort=0;
+
+    int countOfSort = 0;
+
     public void returnkthStaticstic(int k, Node rootNode) {
-        if(rootNode.getLeft()!=null)
+        if (rootNode.getLeft() != null)
             returnkthStaticstic(k, rootNode.getLeft());
-        
+
         countOfSort++;
-        if(countOfSort==k)
+        if (countOfSort == k)
             System.out.println(k + " th item is " + rootNode.getData());
-        
-        if(rootNode.getRight()!=null)
-        returnkthStaticstic(k, rootNode.getRight());    
-     
+
+        if (rootNode.getRight() != null)
+            returnkthStaticstic(k, rootNode.getRight());
+
     }
-    
-    
+
     public void printBetween(int start, int end, Node node) {
-        
+
         // perform inOrder traversal
-        
-        if(node.getLeft()!=null)
+
+        if (node.getLeft() != null)
             printBetween(start, end, node.getLeft());
-        
-        if(node.getData()>start && node.getData()<end)
-            System.out.println(node.getData() +" lies in the range.");
-                
-        if(node.getRight()!=null)
+
+        if (node.getData() > start && node.getData() < end)
+            System.out.println(node.getData() + " lies in the range.");
+
+        if (node.getRight() != null)
             printBetween(start, end, node.getRight());
     }
-    
-    
+
 }
