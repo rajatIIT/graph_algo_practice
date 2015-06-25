@@ -6,6 +6,7 @@ public class LinkedList {
 
     private Node rootNode;
     private Node lastNodePointer;
+    private Node auxilaryList;
 
     public LinkedList() {
         start();
@@ -18,25 +19,33 @@ public class LinkedList {
         while (true) {
             currentNode.setNext(currentNode.getNext().getNext());
             currentNode = currentNode.getNext();
-            if(currentNode==null)
+            if (currentNode == null)
                 break;
         }
     }
-    
+
+    public void mergeSortedLists() {
+
+    }
+
+    /**
+     * Correct and Efficient
+     * 
+     */
     public void bringToFront() {
         Node currentNode = rootNode;
-        
-        while(currentNode.getNext().getNext()!=null){
-            currentNode=currentNode.getNext();
+
+        while (currentNode.getNext().getNext() != null) {
+            currentNode = currentNode.getNext();
         }
-        
+
         Node lastSecondNode = currentNode;
         Node lastNode = currentNode.getNext();
-        
+
         lastNode.setNext(rootNode);
         lastSecondNode.setNext(null);
-        rootNode=lastNode;
-        
+        rootNode = lastNode;
+
     }
 
     public void testCycle() {
@@ -69,6 +78,10 @@ public class LinkedList {
             System.out.println("Press 5 to reverse the linked list.  ");
             System.out.println("Press 6 to delete alternate nodes in linked list.  ");
             System.out.println("Press 7 to bring the last node to the front.");
+            System.out.println("Press 8 to add an auxilary list.");
+            System.out.println("Press 9 to view the auxilary list.");
+            System.out
+                    .println("Press 10 to take intersection of primary and auxilary list. (Both MUST be sorted)");
             int nextInput = inputScanner.nextInt();
             if (nextInput == 1) {
                 System.out.println("Enter numbers to be inserted followed by -1: ");
@@ -97,10 +110,87 @@ public class LinkedList {
                 reverseList();
             } else if (nextInput == 6) {
                 deleteAlternate();
-            } else if (nextInput==7){
+            } else if (nextInput == 7) {
                 bringToFront();
+            } else if (nextInput == 8) {
+
+                createAnotherList();
+
+            } else if (nextInput == 9) {
+                Node currentNode = auxilaryList;
+                while (currentNode != null) {
+                    System.out.print(" -> " + currentNode.getData());
+                    currentNode = currentNode.getNext();
+                }
+            } else if (nextInput == 10) {
+                mergeLists();
+                System.out.println("The merged list is: ");
+                Node currentNode = newList;
+                while (currentNode != null) {
+                    System.out.print(" -> " + currentNode.getData());
+                    currentNode = currentNode.getNext();
+                }
+
             }
 
+        }
+
+    }
+
+    Node newList = new Node();
+
+    /**
+     * Given two lists sorted in increasing order, create and return a new list
+     * representing the intersection of the two lists. The new list should be
+     * made with its own memory — the original lists should not be changed. For
+     * example, let the first linked list be 1->2->3->4->6 and second linked
+     * list be 2->4->6->8, then your function should create and return a third
+     * list as 2->4->6.
+     * 
+     */
+    private void mergeLists() {
+
+        Node newListCurrentNode = newList;
+
+        Node mainListPointer = rootNode;
+        Node auxilaryListPointer = auxilaryList;
+
+        while (!(mainListPointer.getNext() == null && auxilaryListPointer.getNext() == null)) {
+            if (mainListPointer.getData() < auxilaryListPointer.getData()) {
+                mainListPointer = mainListPointer.getNext();
+            } else if (mainListPointer.getData() > auxilaryListPointer.getData()) {
+                auxilaryListPointer = auxilaryListPointer.getNext();
+            } else if (mainListPointer.getData() == auxilaryListPointer.getData()) {
+                Node newListNode = new Node(null, mainListPointer.getData());
+                newListCurrentNode.setNext(newListNode);
+                newListCurrentNode = newListNode;
+                if (mainListPointer.getNext() != null)
+                    mainListPointer = mainListPointer.getNext();
+                if (auxilaryListPointer.getNext() != null)
+                    auxilaryListPointer = auxilaryListPointer.getNext();
+            }
+        }
+    }
+
+    private void createAnotherList() {
+
+        Scanner myInputScanner = new Scanner(System.in);
+        System.out.println("Enter the numbers for the new list followed by -1");
+
+        int nextInput;
+        Node currentNode;
+
+        nextInput = myInputScanner.nextInt();
+        auxilaryList = new Node(null, nextInput);
+        currentNode = auxilaryList;
+
+        while (true) {
+            nextInput = myInputScanner.nextInt();
+            if (nextInput == -1)
+                break;
+            Node newNode = new Node(null, nextInput);
+            currentNode.setNext(newNode);
+            currentNode = newNode;
         }
 
     }
@@ -221,6 +311,10 @@ public class LinkedList {
     }
 
     public class Node {
+
+        public Node() {
+            this.next = null;
+        }
 
         public Node(Node next, int data) {
             this.next = next;
