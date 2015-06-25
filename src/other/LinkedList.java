@@ -9,24 +9,53 @@ public class LinkedList {
 
     public LinkedList() {
         start();
-        
+
+    }
+
+    public void deleteAlternate() {
+
+        Node currentNode = rootNode;
+        while (true) {
+            currentNode.setNext(currentNode.getNext().getNext());
+            currentNode = currentNode.getNext();
+            if(currentNode==null)
+                break;
+        }
     }
     
+    public void bringToFront() {
+        Node currentNode = rootNode;
+        
+        while(currentNode.getNext().getNext()!=null){
+            currentNode=currentNode.getNext();
+        }
+        
+        Node lastSecondNode = currentNode;
+        Node lastNode = currentNode.getNext();
+        
+        lastNode.setNext(rootNode);
+        lastSecondNode.setNext(null);
+        rootNode=lastNode;
+        
+    }
+
     public void testCycle() {
-        
-        Node one = new Node(null,1);
-        Node two = new Node(null,2);
-        Node three = new Node(null,3);
-        Node four = new Node(null,4);
-        Node five = new Node(null,5);
-        
-        one.setNext(two);two.setNext(three);three.setNext(four);four.setNext(five);
+
+        Node one = new Node(null, 1);
+        Node two = new Node(null, 2);
+        Node three = new Node(null, 3);
+        Node four = new Node(null, 4);
+        Node five = new Node(null, 5);
+
+        one.setNext(two);
+        two.setNext(three);
+        three.setNext(four);
+        four.setNext(five);
         five.setNext(two);
-        
-        
-        rootNode=one;
+
+        rootNode = one;
         detectLoop();
-        
+
     }
 
     public void start() {
@@ -38,6 +67,8 @@ public class LinkedList {
             System.out.println("Press 3 to view the middle element of the linked list. ");
             System.out.println("Press 4 to view the Nth element from last. ");
             System.out.println("Press 5 to reverse the linked list.  ");
+            System.out.println("Press 6 to delete alternate nodes in linked list.  ");
+            System.out.println("Press 7 to bring the last node to the front.");
             int nextInput = inputScanner.nextInt();
             if (nextInput == 1) {
                 System.out.println("Enter numbers to be inserted followed by -1: ");
@@ -64,6 +95,10 @@ public class LinkedList {
                 getNfromLast(0);
             } else if (nextInput == 5) {
                 reverseList();
+            } else if (nextInput == 6) {
+                deleteAlternate();
+            } else if (nextInput==7){
+                bringToFront();
             }
 
         }
@@ -82,7 +117,7 @@ public class LinkedList {
                 break;
             simplePointer = simplePointer.getNext();
             alternatePointer = alternatePointer.getNext().getNext();
-            
+
             if (simplePointer.equals(alternatePointer)) {
                 foundCycle = true;
                 break;
@@ -90,11 +125,11 @@ public class LinkedList {
 
         }
 
-        if(foundCycle)
+        if (foundCycle)
             System.out.println("Cycle exists.");
         else
             System.out.println("No cycle!");
-        
+
     }
 
     public void reverseList() {
