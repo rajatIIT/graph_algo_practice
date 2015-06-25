@@ -9,6 +9,24 @@ public class LinkedList {
 
     public LinkedList() {
         start();
+        
+    }
+    
+    public void testCycle() {
+        
+        Node one = new Node(null,1);
+        Node two = new Node(null,2);
+        Node three = new Node(null,3);
+        Node four = new Node(null,4);
+        Node five = new Node(null,5);
+        
+        one.setNext(two);two.setNext(three);three.setNext(four);four.setNext(five);
+        five.setNext(two);
+        
+        
+        rootNode=one;
+        detectLoop();
+        
     }
 
     public void start() {
@@ -50,6 +68,33 @@ public class LinkedList {
 
         }
 
+    }
+
+    public void detectLoop() {
+
+        Node simplePointer = rootNode;
+        Node alternatePointer = rootNode;
+        boolean foundCycle = false;
+
+        while (true) {
+
+            if (alternatePointer.getNext() == null || alternatePointer.getNext().getNext() == null)
+                break;
+            simplePointer = simplePointer.getNext();
+            alternatePointer = alternatePointer.getNext().getNext();
+            
+            if (simplePointer.equals(alternatePointer)) {
+                foundCycle = true;
+                break;
+            }
+
+        }
+
+        if(foundCycle)
+            System.out.println("Cycle exists.");
+        else
+            System.out.println("No cycle!");
+        
     }
 
     public void reverseList() {
