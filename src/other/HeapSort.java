@@ -6,10 +6,59 @@ public class HeapSort {
 
     int tempInput;
     int[] heapArray;
+    Scanner input;
 
     public HeapSort() {
 
-        Scanner input = new Scanner(System.in);
+        input = new Scanner(System.in);
+        while (true) {
+
+            System.out.println("1) Create a new heap.");
+            System.out.println("2) Sort heap using heapsort.");
+            System.out.println("3) Find Kth largest element.");
+            System.out.println("4) Quit");
+            System.out.println("5) View the Array.");
+
+            int userInput = input.nextInt();
+
+            if (userInput == 1)
+                createHeap();
+            else if (userInput == 2)
+                heapSort();
+            else if (userInput == 3) {
+                System.out.println("Enter the k: ");
+                int k = input.nextInt();
+                int[] tempArray = heapArray.clone();
+                System.out.println("The " + k + " th largest number is " + getKLargest(k));
+                // restore old array
+                heapArray = tempArray;
+            } else if (userInput == 4)
+                break;
+            else if (userInput == 5) {
+                for(int eachElement: heapArray)
+                    System.out.println(" "  + eachElement);
+            }
+        }
+
+        input.close();
+
+    }
+
+    private int getKLargest(int k) {
+
+        // heapify k times to get the kth largest element.
+
+        for (int i = 0; i <= k; i++) {
+
+            // heapify(heapArray, i, heapArray.length - 1);
+            heapify(heapArray, 0, heapArray.length - 1 - i);
+            swap(heapArray, 0, heapArray.length - 1 - i);
+        }
+        return heapArray[heapArray.length - k];
+
+    }
+
+    public void createHeap() {
         System.out.println("Enter the size of the array: ");
         int size = input.nextInt();
         heapArray = new int[size];
@@ -19,7 +68,9 @@ public class HeapSort {
             tempInput = input.nextInt();
             heapArray[i] = tempInput;
         }
+    }
 
+    public void heapSort() {
         // we have the array now.
         System.out.println("Unsorted Array: ");
         for (int eachElement : heapArray)
@@ -28,9 +79,6 @@ public class HeapSort {
         System.out.println("\n" + "Sorted Array: ");
         for (int eachElement : heapArray)
             System.out.print("    " + eachElement);
-        
-        input.close();
-
     }
 
     public void heapSort(int[] heapArray) {
@@ -58,6 +106,7 @@ public class HeapSort {
 
         for (int i = start; i <= end; i++) {
 
+            // if (((2 * i) + 1) <= end && ((2 * i) + 2) <= end) {
             if (((2 * i) + 1) <= end && ((2 * i) + 2) <= end) {
                 int heap1 = (2 * i) + 1;
                 int heap2 = (2 * i) + 2;
@@ -100,11 +149,10 @@ public class HeapSort {
 
         int parent;
 
-        if (smallerIndex % 2 == 0) 
+        if (smallerIndex % 2 == 0)
             parent = (smallerIndex - 2) / 2;
         else
             parent = (smallerIndex - 1) / 2;
-        
 
         if (parent > 0) {
             if (A[parent] < A[smallerIndex])
