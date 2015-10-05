@@ -1,11 +1,13 @@
 package graphBasicPractice;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GraphVertex {
 
-    private int color, startTime, endTime, id, branchType;
+    private int color, startTime, endTime, id, branchType, data;
     private ArrayList<Integer> list;
+    private HashMap<Integer,Integer> weightMap;
     public static final int WHITE = 0, GRAY = 1, BLACK = 2;
     public static final int TREE = 0, FORWARD = 1, BACK = 2, CROSS = 3;
 
@@ -14,6 +16,32 @@ public class GraphVertex {
         this.color = this.WHITE;
         this.startTime=0;
         this.endTime=0;
+        weightMap = new HashMap<Integer,Integer>();
+    }
+    
+    public GraphVertex(int nodeID, int data) {
+        this();
+        this.id = nodeID;
+        this.data = data;
+    }
+    
+    protected HashMap<Integer,Integer> getWeightMap() {
+        return weightMap;
+    }
+    
+    protected boolean isListEmpty() {
+        if (list.isEmpty())
+            return true;
+        else
+            return false;
+    }
+    
+    protected int getData() {
+        return data;
+    }
+    
+    protected void setData(int data) {
+        this.data = data;
     }
 
     protected int getBranchType() {
