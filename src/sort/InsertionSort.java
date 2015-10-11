@@ -11,22 +11,15 @@ public class InsertionSort {
      * 
      */
 
-    public InsertionSort() {
+    public InsertionSort(int[] in) {
 
         // Generate random array and sort;
 
-        sort(generateRandom(20));
+        sort(in);
 
     }
 
-    public int[] generateRandom(int size) {
-        int bound = 20;
-        int[] randomArray = new int[size];
-        Random r = new Random();
-        for (int i = 0; i < randomArray.length; i++)
-            randomArray[i] = r.nextInt(bound);
-        return randomArray;
-    }
+    
 
     /**
      * 
@@ -47,7 +40,7 @@ public class InsertionSort {
         } else {
 
             if (input[0] > input[1])
-                swap(input, 0, 1);
+                SortUtils.swap(input, 0, 1);
 
             for (int i = 2; i < input.length; i++) {
 
@@ -72,11 +65,9 @@ public class InsertionSort {
 
                         // insert A[i] at the j+1 th position and shift the
                         // rest.
-                        // ---------------------
-                        // shift : _______________
                         for (int k = i - 1; k >= j; k--) {
                             input[k + 1] = input[k];
-                         //   System.out.println("input[" + (k + 1) + "] = " + input[k]);
+
                         }
                         input[j] = iTHValue;
                         System.out.println(Arrays.toString(input));
@@ -90,12 +81,6 @@ public class InsertionSort {
         }
         return input;
 
-    }
-
-    public void swap(int[] arr, int index1, int index2) {
-        int temp = arr[index1];
-        arr[index1] = arr[index2];
-        arr[index2] = temp;
     }
 
 }
