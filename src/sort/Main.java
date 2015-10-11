@@ -9,7 +9,7 @@ public class Main {
         
        // InsertionSort iSort = new InsertionSort(generateRandom(20));
         MergeSort mSort = new MergeSort();
-        mSort.sort(generateRandom(10));
+        mSort.sort(generateRandom(50));
         
         
     }

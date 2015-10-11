@@ -30,7 +30,7 @@ public class MergeSort {
             if (input[start + 2] < input[start]) {
                 SortUtils.swap(input, start + 1, start + 2);
                 SortUtils.swap(input, start, start + 1);
-            } else if (input[start] < input[start + 2] && input[start + 2] < input[start + 1]) {
+            } else if (input[start] <= input[start + 2] && input[start + 2] <= input[start + 1]) {
                 SortUtils.swap(input, start + 1, start + 2);
             }
 
@@ -52,58 +52,63 @@ public class MergeSort {
             int pointer1 = start;
             int pointer2 = start + middle + 1;
 
-            boolean arr1Done = false, arr2Done = false;
+            
 
             // while (mergeOutPointer != mergedOutput.length - 1) {
-            while (!(arr1Done && arr2Done)) {
-                if(arr1Done&&arr2Done)
-                    break;
-                if (arr1Done || arr2Done) {
-                    if (arr1Done) {
-                        System.out.println("Take 2:  " + input[pointer2]);
-                        mergedOutput[mergeOutPointer] = input[pointer2];
-                        if (pointer2 == end){
-                            arr2Done = true;System.out.println("2 done.");
-                            }
-                        else {
-                            pointer2++;
-                            System.out.println("pointer 2 advanced to " + pointer2);
-                        }
-                    }
-
-                    if (arr2Done) {
-                        System.out.println("Take 1:  " + input[pointer1]);
-                        mergedOutput[mergeOutPointer] = input[pointer1];
-                        if (pointer1 == start + middle) {
-                            arr1Done = true;
-                            System.out.println("1 done.");
-                        } else {
-                            pointer1++;
-                            System.out.println("pointer 1 advanced to " + pointer1);
-                        }
-                    }
-                } else {
+            while (true) {
                     if (input[pointer1] <= input[pointer2]) {
                         System.out.println("Pointer 1 small. Take " + input[pointer1]);
                         mergedOutput[mergeOutPointer] = input[pointer1];
                         if (pointer1 == start + middle) {
-                            arr1Done = true;
-                            System.out.println("1 done.");
-                        } else {
-                            pointer1++;
-                            System.out.println("pointer 1 advanced to " + pointer1);
+                            // pointer 1 reached the end. include the current
+                            // pointer2,
+                            // and exhaust it until the end.
+
+                            System.out.println("Exhaust 2");
+                            mergeOutPointer++;
+                            mergedOutput[mergeOutPointer] = input[pointer2];
+                            
+                            
+                            while (pointer2 != end) {
+                                pointer2++;
+                                System.out.println("include " + input[pointer2]);
+                                mergeOutPointer++;
+                                mergedOutput[mergeOutPointer] = input[pointer2];
+                                
+                            }
+                            break;
+
+                            /*
+                             * arr1Done = true; System.out.println("1 done.");
+                             * 
+                             * } else { pointer1++;
+                             * System.out.println("pointer 1 advanced to " +
+                             * pointer1); }
+                             */
                         }
+                        pointer1++;
                     } else {
                         System.out.println("Pointer 2 small. Take " + input[pointer2]);
                         mergedOutput[mergeOutPointer] = input[pointer2];
                         if (pointer2 == end) {
-                            arr2Done = true;
-                            System.out.println("2 done.");
-                        } else {
-                            pointer2++;
-                            System.out.println("pointer 2 advanced to " + pointer2);
+                            // include pointer1 and exhaust it till the end.
+                            System.out.println("Exhaust 1");
+                            System.out.println("include " + input[pointer1]);
+                            mergeOutPointer++;
+                            mergedOutput[mergeOutPointer] = input[pointer1];
+                            
+                            while (pointer1 != start+middle) {
+                                pointer1++;
+                                System.out.println("include " + input[pointer1]);
+                                mergeOutPointer++;
+                                mergedOutput[mergeOutPointer] = input[pointer1];
+                                
+                            }
+                            break;
+
                         }
-                    }
+                        pointer2++;
+                    
                 }
                 mergeOutPointer++;
             }
