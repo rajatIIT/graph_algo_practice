@@ -38,7 +38,7 @@ public class TestUtils {
 
         boolean sortingOrder = checkSorted(newArr);
         boolean frequencyCheck = frequencyMap.equals(newFrequencyMap);
-
+        
         return (sortingOrder && frequencyCheck);
     }
 
