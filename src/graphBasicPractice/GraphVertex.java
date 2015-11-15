@@ -3,13 +3,10 @@ package graphBasicPractice;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class GraphVertex {
+public class GraphVertex extends Vertex{
 
-    private int color, startTime, endTime, id, branchType, data;
-    private ArrayList<Integer> list;
-    private HashMap<Integer,Integer> weightMap;
+    private int color, startTime, endTime, branchType;
     public static final int WHITE = 0, GRAY = 1, BLACK = 2;
-    public static final int TREE = 0, FORWARD = 1, BACK = 2, CROSS = 3;
 
     public GraphVertex() {
         list = new ArrayList<Integer>();
@@ -24,25 +21,6 @@ public class GraphVertex {
         this.id = nodeID;
         this.data = data;
     }
-    
-    protected HashMap<Integer,Integer> getWeightMap() {
-        return weightMap;
-    }
-    
-    protected boolean isListEmpty() {
-        if (list.isEmpty())
-            return true;
-        else
-            return false;
-    }
-    
-    protected int getData() {
-        return data;
-    }
-    
-    protected void setData(int data) {
-        this.data = data;
-    }
 
     protected int getBranchType() {
         return branchType;
@@ -52,21 +30,6 @@ public class GraphVertex {
         this.branchType = branchType;
     }
 
-    protected ArrayList<Integer> getList() {
-        return list;
-    }
-
-    protected void setList(ArrayList<Integer> list) {
-        this.list = list;
-    }
-
-    protected int getId() {
-        return id;
-    }
-
-    protected void setId(int id) {
-        this.id = id;
-    }
 
     protected int getColor() {
         return color;
@@ -90,10 +53,6 @@ public class GraphVertex {
 
     protected void setEndTime(int endTime) {
         this.endTime = endTime;
-    }
-
-    protected void addVertex(int newVertexId) {
-        list.add(newVertexId);
     }
 
 }
