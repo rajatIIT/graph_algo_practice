@@ -1,8 +1,6 @@
 package math;
 
 public class IntRange {
-    
-    
 
     public IntRange() {
         
@@ -28,11 +26,6 @@ public class IntRange {
         this.finalNum = finalNum;
     }
 
-
     public int finalNum;
-    
-    
-    
-    
 
 }

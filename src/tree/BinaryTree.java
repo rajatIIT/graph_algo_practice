@@ -10,6 +10,7 @@ public class BinaryTree {
     Node rootNode;
     ArrayList<Node> nodeList = new ArrayList<Node>();
     private int idCounter = 0;
+    BinarySearchTree bst;
 
     public BinaryTree() {
         start();
@@ -68,48 +69,21 @@ public class BinaryTree {
                     continue;
                 }
             } else if (nextInput == 4) {
-                System.out
-                        .println("Displaying the binary tree. in the format <Node # :Node Value>");
-                Iterator<Node> nodeIterator = nodeList.iterator();
-                while (nodeIterator.hasNext()) {
-                    Node nextNode = nodeIterator.next();
-                    System.out.println();
-                    System.out.print("(" + nextNode.getNodeID() + ":" + nextNode.getData()
-                            + " ) -> ");
-                    if (nextNode.getLeft() != null)
-                        System.out.print("(" + nextNode.getLeft().getNodeID() + ":"
-                                + nextNode.getLeft().getData() + ")");
-                    else
-                        System.out.print("X");
-                    System.out.print(",");
-                    if (nextNode.getRight() != null)
-                        System.out.print("(" + nextNode.getRight().getNodeID() + ":"
-                                + nextNode.getRight().getData() + ")");
-                    else
-                        System.out.print("X");
-                }
-                System.out.println();
+                if (nodeList.size() == 0)
+                    Utils.printBinaryTree(bst.nodeList);
+                else
+                    Utils.printBinaryTree(nodeList);
+
             } else if (nextInput == 5) {
                 break;
             } else if (nextInput == 6) {
                 // create a new binary search tree.
-
-                // does not already have a root node.
-                System.out.println("Enter the value of the root node: ");
-                int rootNodeVal = inputScanner.nextInt();
-
-                rootNode = new Node(idCounter, rootNodeVal);
-                idCounter++;
-                nodeList.add(rootNode);
-                System.out.println("");
-
-                System.out.println("Created tree with one node. Use insert to add more nodes.");
-
+                bst = new BinarySearchTree();
             } else if (nextInput == 7) {
                 System.out.println("Enter the values to be inserted (and -1 when you are done): ");
                 int value = inputScanner.nextInt();
                 while (value != -1) {
-                    insertIntoBST(rootNode, value);
+                    bst.insert(value);
                     value = inputScanner.nextInt();
                 }
             } else if (nextInput == 8) {
