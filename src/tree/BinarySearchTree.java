@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class BinarySearchTree {
     
     Node rootNode;
-    private int idCounter;
+    protected int idCounter;
     ArrayList<Node> nodeList;
     
     /**
@@ -40,6 +40,8 @@ public class BinarySearchTree {
         if (data > node.getData()) {
             // insert into the right side of the tree;
             if (node.getRight() == null) {
+                
+                // Execute insertion
                 // insert the node right here left to this node. add the new
                 // node to the list of nodes.
                 Node nodeToBeInserted = new Node(idCounter, data);

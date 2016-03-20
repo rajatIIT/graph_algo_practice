@@ -1,34 +1,35 @@
 package tree;
 
-public class Node {
+public class AVLNode {
 
     protected int height;
     protected int nodeID;
-    protected Node right;
-    protected Node left;
+    protected AVLNode right;
+    protected AVLNode left;
     protected int data;
-    
-    protected Node(int nodeID) {
+    private int balanceFactor = 0;
+
+    protected AVLNode(int nodeID) {
         right = null;
         left = null;
         data = 0;
         this.nodeID = nodeID;
     }
-    
-    protected Node(int nodeID,int data){
-        this.data=data;
+
+    protected AVLNode(int nodeID, int data) {
+        this.data = data;
         right = null;
         left = null;
         this.nodeID = nodeID;
     }
 
-    protected Node(Node left, Node right, int nodeID) {
+    protected AVLNode(AVLNode left, AVLNode right, int nodeID) {
         this.left = left;
         this.right = right;
         data = 0;
         this.nodeID = nodeID;
     }
-    
+
     protected int getHeight() {
         return height;
     }
@@ -45,19 +46,19 @@ public class Node {
         this.nodeID = nodeID;
     }
 
-    protected Node getRight() {
+    protected AVLNode getRight() {
         return right;
     }
 
-    protected void setRight(Node right) {
+    protected void setRight(AVLNode right) {
         this.right = right;
     }
 
-    protected Node getLeft() {
+    protected AVLNode getLeft() {
         return left;
     }
 
-    protected void setLeft(Node left) {
+    protected void setLeft(AVLNode left) {
         this.left = left;
     }
 
@@ -68,17 +69,33 @@ public class Node {
     protected void setData(int data) {
         this.data = data;
     }
-    
+
     protected void updateHeight() {
         height = 1 + Math.max(right.height, left.height);
     }
-    
-    protected boolean isLeaf(){
-        if(right==null && left==null)
+
+    protected boolean isLeaf() {
+        if (right == null && left == null)
             return true;
         else
             return false;
-        
+
+    }
+
+    protected boolean isUnbalanced() {
+        if (balanceFactor > 1 || balanceFactor < -1)
+            return true;
+        else
+            return false;
+
+    }
+
+    public void computeBalanceFactor() {
+        balanceFactor = right.getHeight() - left.getHeight();
+    }
+
+    public int getBalanceFactor() {
+        return balanceFactor;
     }
 
 }
