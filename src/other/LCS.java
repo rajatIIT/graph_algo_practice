@@ -17,7 +17,22 @@ package other;
  */
 public class LCS {
 
-    public String findLongestCommonSubsequence(String string1, String string2) {
+    public String findLongestCommonSubsequenceWithBruteForce(String string1, String string2) {
+        return findLongestCommonSubsequence(false, string1, string2);
+    }
+
+    /**
+     * 
+     * @param dynamicProgrammingFlag
+     *            if true, use Dynamic Programming else use Brute Force Method.
+     * @param string1
+     * @param string2
+     * @return
+     */
+    private String findLongestCommonSubsequence(Boolean dynamicProgrammingFlag, String string1,
+            String string2) {
+
+        System.out.println("Find LCS for " + string1 + " and " + string2);
 
         if (string1.equals("") || string2.equals(""))
             return "";
@@ -29,25 +44,72 @@ public class LCS {
 
         } else {
             // The general case;
-            
-            String[] possibilities = new String[3];
-            
-            possibilities[0]= findLongestCommonSubsequence(string1.substring(0, string1.length()-1), string2);
-            possibilities[1]= findLongestCommonSubsequence(string1, string2.substring(0, string2.length()-1));
-            possibilities[2]= findLongestCommonSubsequence(string1.substring(0, string1.length()-1), string2.substring(0, string2.length()-1));
-            
-            int maxLength = Math.max(possibilities[0].length(), Math.max(possibilities[1].length(), possibilities[2].length()));
-            if(possibilities[0].length()==maxLength)
-                return possibilities[0];
-            else if(possibilities[1].length()==maxLength)
-                return possibilities[1];
-            else if(possibilities[2].length()==maxLength)
-                return possibilities[2];
-            
+
+            String[] possibilities = new String[2];
+
+            if ((string1.charAt(string1.length() - 1)) == (string2.charAt(string2.length() - 1))) {
+
+                System.out.println((string1.charAt(string1.length() - 1)) + " = "
+                        + (string2.charAt(string2.length() - 1)));
+
+                String firstPart = findLongestCommonSubsequence(dynamicProgrammingFlag,
+                        string1.substring(0, string1.length() - 1),
+                        string2.substring(0, string2.length() - 1));
+
+                char secondPart = (string1.charAt(string1.length() - 1));
+
+                StringBuilder builder = new StringBuilder();
+                builder.append(firstPart);
+                builder.append(secondPart);
+
+                return builder.toString();
+            } else if ((string1.charAt(string1.length() - 1)) != (string2
+                    .charAt(string2.length() - 1))) {
+
+                System.out.println((string1.charAt(string1.length() - 1)) + " != "
+                        + (string2.charAt(string2.length() - 1)));
+
+                possibilities[0] = findLongestCommonSubsequence(dynamicProgrammingFlag,
+                        string1.substring(0, string1.length() - 1), string2);
+
+                System.out.println("Computed possibility1 = " + possibilities[0]);
+
+                possibilities[1] = findLongestCommonSubsequence(dynamicProgrammingFlag, string1,
+                        string2.substring(0, string2.length() - 1));
+
+                System.out.println("Computed possibility2 = " + possibilities[1]);
+                /*
+                 * possibilities[2] = findLongestCommonSubsequence(
+                 * string1.substring(0, string1.length() - 1),
+                 * string2.substring(0, string2.length() - 1));
+                 */
+
+                int maxLength = Math.max(possibilities[0].length(), possibilities[1].length());
+
+                if (possibilities[0].length() == maxLength)
+                    return possibilities[0];
+                else if (possibilities[1].length() == maxLength)
+                    return possibilities[1];
+            }
         }
 
         // ABABDBABAAABC D
-        // DBCADBABAABDA C
+        // DBCADBABAABDAC
+
+        // at the end of each step , either
+        // 1) we append one character to the beginning of the
+        // "current sequence".
+        // 2) we append none.
+
+        // every step : if same character in the end, we know this charcter to
+        // be appended to the
+        // beginning.
+        // if different characters, we append the one which gives the largest
+        // size output
+        // of the size of the sequence.
+
+        // output perspective : compute the LCS, like the string ; at every
+        // decision, we need to store the varibles.
 
         // lame method : compare every two substrings.
 
