@@ -3,30 +3,23 @@ package tree;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- * 
- * Create random binary tree.
- * 
- * @author rajatpawar
- *
- */
+//=====================
+// common utilities.
+//=====================
 public class Utils {
     
     
     public static Node createRandomBST() {
-
-        // create a random array of integers and insert it into a standard binary search tree 
-        
-        
+       // create a random array of integers and 
+       // insert it into a standard binary search
+       // tree 
         return null;
     }
     
     
     public static void printBinaryTree(ArrayList<Node> nodeList) {
-        
-
-        System.out
-                .println("Displaying the binary tree. in the format <Node # :Node Value>");
+        System.out.println("Displaying the binary tree. "
+                		+ "in the format <Node # :Node Value>");
         Iterator<Node> nodeIterator = nodeList.iterator();
         while (nodeIterator.hasNext()) {
             Node nextNode = nodeIterator.next();

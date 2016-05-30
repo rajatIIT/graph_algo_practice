@@ -8,19 +8,25 @@ DFS is a graph search algorithm. Review concept of graph and the DFS search algo
 */
 public class DepthFirstSearch {
     
-	// Use array to represent a graph cause we work by node IDs which uses random access which is O(1) for an array. 
+    //===========================================
+	// Use array to represent a graph cause we work by node IDs which uses random access which is O(1) for an array.
+    //===========================================
     GraphVertex[] allVertices;
     private int time=1;
     private boolean[] isVertexASource;
     
+    //===========================================
     // input the provided graph using constructor.
+    //===========================================
     public DepthFirstSearch(GraphVertex[] allVertices){
         this.allVertices = allVertices;
         isVertexASource = new boolean[allVertices.length];
     }
     
+    //===========================================
     // Algorithm uses (hypothetical) colors to distinguish nodes.
-    // Unvisited nodes are white, visited nodes are black, while "processing" nodes are gray. 
+    // Unvisited nodes are white, visited nodes are black, while "processing" nodes are gray.
+    //===========================================
     public void search() {
         
     	// execute dfs search over all vertices. Thus, also graphs with non-connected vertices. 
@@ -53,7 +59,9 @@ public class DepthFirstSearch {
         }
     }
 
+    //===========================================
     // the process to be executed on each node.
+    //===========================================
     private void dfs_search(int i) {
         System.out.println("Execute dfs_search on " + i);
         // get the adjacent nodes of i

@@ -6,9 +6,9 @@ public class TreeOperations {
         testInOrderTraversal();
     }
 
-    /**
-     * A simple test method. Avoiding JUnit because it is time consuming.
-     */
+     //=======================
+     // A simple test method. 
+     //=======================
     private void testInOrderTraversal() {
         System.out.println("In Order traversal");
         Node rootNode = new Node(0, 3);

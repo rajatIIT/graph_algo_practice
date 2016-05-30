@@ -4,19 +4,62 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
+// ======================================
+// Implement the binary tree, binary search tree
+// and the basic utilities around it. 
+// Utilities include
+// -> Create new Binary Tree.
+// -> Create new Binary Search Tree.
+// -> Insert/Delete integers.
+// -> Find inorder successor
+// -> Find kth smallest element.
+// -> Print elements within a range.
+// -> Check if tree is balanced.
+// Familiarize yourself with inOrder traversal
+// using Wikipedia or otherwise. 
+//
+// Trick to remember order in traversals:
+// the word represents the order of visiting 
+// the root
+// InOrder -> root in between (L and R)
+// PreOrder -> root before (L and R)
+// PostOrder -> root after (L and R)
+// @author rajatpawar
+// ======================================
 public class BinaryTree {
 
-    boolean hasRoot;
+	// ======================================
+	// The data structures used for storing the
+	// data in the tree. nodeList contains 
+	// all the nodes in the tree.
+	// 
+	// Every node can be referenced by a unique
+	// number(id). This requires random access.
+	// Thus, we use ArrayList. We do not know the
+	// total number of nodes in the tree beforehand.
+	// This makes array less preferable. ArrayList,
+	// which is designed for use specifically in such 
+	// situations is our choice here.
+	//
+	// View the Node class which represents a node of 
+	// the tree. 
+	// ======================================
+	boolean hasRoot;
     Node rootNode;
     ArrayList<Node> nodeList = new ArrayList<Node>();
     private int idCounter = 0;
     BinarySearchTree bst;
-
+    
+    
     public BinaryTree() {
         start();
         // TreeOperations myOP = new TreeOperations();
     }
 
+    
+    // ======================================
+    // An infinite loop which asks user "what to do next? ".
+    // ======================================
     public void start() {
 
         Scanner inputScanner = new Scanner(System.in);
@@ -33,9 +76,15 @@ public class BinaryTree {
             System.out.println(" 9) Find kth smallest element from the tree.");
             System.out.println(" 10) Print elements of tree that lie within a particular range.");
             System.out.println(" 11) check if the tree is balanced.");
-
+            
+            // depending on what number user inputs, the system makes
+            // necessary changes to the tree.
             int nextInput = inputScanner.nextInt();
             if (nextInput == 1) {
+            	// some trees are null trees. Just to support that feature
+            	// we ask if there is a root node. 
+            	// we work with node numbers. we assign 
+            	// number 0 to root node. 
                 System.out.println("Does tree have a root node? (y/n)");
                 char userChoice = inputScanner.next().charAt(0);
                 if (userChoice == 'y') {
@@ -45,6 +94,13 @@ public class BinaryTree {
                 }
                 System.out.println("Updated/Created the tree. The root branch has node number 0.");
             } else if (nextInput == 2) {
+            	// input the node number where insertion is to
+            	// be made. The class shows a nice node number
+            	// and value map by using the 4 option
+            	// view binary search tree of this class.
+            	// using this system for a nice visual representation. 
+            	// usually, the tree is traversed all the way to 
+            	// the end and then the node is added. 
                 System.out.println("Enter the number of node where you want to add the branch ?");
                 int targetBranch = inputScanner.nextInt();
                 System.out.println("Do you want to add a right/left node? (Enter r/l)");
@@ -69,6 +125,8 @@ public class BinaryTree {
                     continue;
                 }
             } else if (nextInput == 4) {
+            	// we have a special class 
+            	// utils which contains the common code.
                 if (nodeList.size() == 0)
                     Utils.printBinaryTree(bst.nodeList);
                 else
@@ -100,6 +158,7 @@ public class BinaryTree {
                 countOfSort = 0;
                 System.out.println("Enter the number of k where you want kTH order statistic:");
                 int myK = inputScanner.nextInt();
+                // view the method
                 returnkthStaticstic(myK, rootNode);
             } else if (nextInput == 10) {
                 System.out.println("Enter the initial and the final values of the range: ");
@@ -118,23 +177,11 @@ public class BinaryTree {
         inputScanner.close();
     }
 
-    /**
-     * is tree height balanced?
-     * 
-     * find the height of all leaf nodes. if height of even one is different,
-     * return false.
-     * 
-     * checkTreeHeight(Node n)
-     * 
-     * if n is leaf and height!=lastUpdatedHeight print not balanced.
-     * 
-     * else
-     * 
-     * checkTreeHeight(left) checkTreeheight(right)
-     * 
-     * @param rootNode
-     * @return
-     */
+    // ======================================
+    //  find the height of all leaf nodes. if 
+    // height of even one is different,
+    //  the tree is not node balanced.
+    // ======================================
     public void isTreeHeightBalanced(Node rootNode) {
 
         // traverse all the nodes.
@@ -160,6 +207,9 @@ public class BinaryTree {
     boolean isLeafDepthSet;
     int leafDepth;
 
+    // simple recursive algorithm.
+    // node that the node structure has a 
+    // field for tree height.
     public void computeTreeDepth(int height, Node rootNode) {
 
         rootNode.setHeight(height);
@@ -171,39 +221,15 @@ public class BinaryTree {
             computeTreeDepth(height + 1, rootNode.getRight());
 
     }
-
-    public void insertIntoBST(Node node, int data) {
-
-        // traverse from root to insert into BST.
-        if (data > node.getData()) {
-            // insert into the right side of the tree;
-            if (node.getRight() == null) {
-                // insert the node right here left to this node. add the new
-                // node to the list of nodes.
-                Node nodeToBeInserted = new Node(idCounter, data);
-                idCounter++;
-                node.setRight(nodeToBeInserted);
-                nodeList.add(nodeToBeInserted);
-            } else
-                insertIntoBST(node.getRight(), data);
-
-        } else if (data < node.getData()) {
-            // insert into the left side of the tree;
-            if (node.getLeft() == null) {
-                // insert the node right here: to the left
-                Node nodeToBeInserted = new Node(idCounter, data);
-                idCounter++;
-                node.setLeft(nodeToBeInserted);
-                nodeList.add(nodeToBeInserted);
-            } else
-                insertIntoBST(node.getLeft(), data);
-
-        } else if (data == node.getData()) {
-            System.out
-                    .println("Data cannot be inserted since duplicate nodes are not allowed in BST.");
-        }
-    }
-
+    
+    // ======================================
+    // * for binary search tree only *
+    // go all the way down to the left in the 
+    // tree, start inorder traversal, increment
+    // a counter while performing the inorder 
+    // traversal and return the kth element 
+    // in the counter.
+    // ======================================
     public void inOrderSuccessor(Node inputNode) {
 
         if (inputNode.getLeft() == null) {
@@ -213,6 +239,7 @@ public class BinaryTree {
             inOrderSuccessor(inputNode.getLeft());
     }
 
+    // ignore this.
     public void findStatic(int number, Node rootNode) {
 
         // find the numberTH smallest number in the tree.
@@ -227,6 +254,14 @@ public class BinaryTree {
 
     int countOfSort = 0;
 
+   // ======================================
+   // * for binary search tree only *
+   // go all the way down to the left in the 
+   // tree, start inorder traversal, increment
+   // a counter while performing the inorder 
+   // traversal and return the kth element 
+   // in the counter.
+   // ======================================
     public void returnkthStaticstic(int k, Node rootNode) {
         if (rootNode.getLeft() != null)
             returnkthStaticstic(k, rootNode.getLeft());
@@ -240,10 +275,26 @@ public class BinaryTree {
 
     }
 
+    // ======================================
+    // A very simple technique : perform
+    // inOrder traversal and print all the elements
+    // in the range. Another is to execute two 
+    // two traversals from the root. One towards
+    // left which prints elements in range 
+    // (min,root) and other towards right which 
+    // prints elements in range (root, max).
+    // in the left traversal, print the right
+    // subtree of a node if the min element 
+    // is less than the node value. For the 
+    // right traversal, print the left subtree 
+    // of a node if the node value is less than
+    // the max. First method is simple, while
+    // second is more efficient. We implement
+    // the first one. 
+    // ======================================
     public void printBetween(int start, int end, Node node) {
 
         // perform inOrder traversal
-
         if (node.getLeft() != null)
             printBetween(start, end, node.getLeft());
 
