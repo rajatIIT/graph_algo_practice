@@ -87,6 +87,19 @@ public class HeapSort {
         // now create the heap every new time, in every step of creating a
         // heap, execute heapify.
 
+    	// We assume that we already have 
+    	// the unsorted array in the heapArray
+    	// data structure. We then, iterate from
+    	// the last element of the array to the 
+    	// first element of the array. While we 
+    	// iterate, we execute the heapify operation
+    	// on the set (0,iterated element) to determine
+    	// the largest array in the set which comes at
+    	// the element after the operation is complete.
+    	// we then, swap the first element with the jTH
+    	// element, so that the element in the jTH position
+    	// is in the right place. (j is the element being 
+    	// iterated on)
         for (int j = heapArray.length - 1; j > 0; j--) {
 
             heapify(heapArray, 0, j);
@@ -102,6 +115,20 @@ public class HeapSort {
         A[index2] = temp;
     }
 
+    /*
+     * 27.5
+     *       
+     * 			30
+     * 
+     *		   29 29.5
+     * 
+     *		 27 26 25 28
+     * 
+     * 23 22 21 20    19 18 17 24
+     * 
+     * 15 14 13 12 11 10 9 8 7 6 5 4 
+     * 
+     */
     public void heapify(int[] inputArray, int start, int end) {
 
         for (int i = start; i <= end; i++) {

@@ -5,36 +5,28 @@ import java.util.Random;
 
 public class InsertionSort {
 
-    /**
-     * 
-     * Sort an array by inserting one element to the front list at a time.
-     * 
-     */
-
+	// ===============
+	// Simple sorting algorithm which 
+	// iterates over the entire array 
+	// and incrementally sorts the array
+	// by placing the element being iterated 
+	// on to the correct position in the 
+	// list preceding the element. 
+	// ===============
     public InsertionSort() {
 
     }
 
-    
-
-    /**
-     * 
-     * @param input
-     *            Array to be sorted.
-     */
+    //===============
+    // Call this method to sort.
+    //===============
     public int[] sort(int[] input) {
         System.out.println("Before Sort: " + Arrays.toString(input));
+
         // simple case : a one element array is trivially sorted.
-
-        // start placing every element from the third element to the last
-        // element in the
-        // first array.
-
-     //   System.out.println(Arrays.toString(input));
-
         if (input.length == 1) {
         } else {
-
+        	// sort a two element array.
             if (input[0] > input[1]){
                 SortUtils.swap(input, 0, 1);
                 System.out.println("Swap first 2.");
@@ -44,8 +36,7 @@ public class InsertionSort {
             for (int i = 2; i < input.length; i++) {
 
                 // insert index i properly into the list (0,i-1)
-
-                int listStart = 0, listEnd = i - 1;
+            	int listStart = 0, listEnd = i - 1;
 
                 System.out.println("check " + listStart + " to " + listEnd);
                 for (int j = listStart; j <= listEnd; j++) {

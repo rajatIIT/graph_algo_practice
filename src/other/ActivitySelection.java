@@ -3,6 +3,16 @@ package other;
 import java.util.HashSet;
 import java.util.TreeSet;
 
+
+//=============================
+// Classic Activity Selection Problem.
+// Solution using greedy algorithm. 
+// Read the description, formal definition
+// and optimal solution on Wikipedia 
+// before going ahead! 
+//
+// 
+//=============================
 public class ActivitySelection {
         
     public ActivitySelection(int[] startTime, int[] finalTime) {
