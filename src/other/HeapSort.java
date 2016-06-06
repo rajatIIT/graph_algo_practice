@@ -2,6 +2,18 @@ package other;
 
 import java.util.Scanner;
 
+// ======================
+// A very popular sort algorithm.
+//
+// Please read this before proceeding: 
+// https://en.wikipedia.org/wiki/Heapsort
+// https://en.wikipedia.org/wiki/Heapsort#Overview
+//  
+// We are given an unsorted array as input.
+// We sort it by repeatedly creating a heap. 
+// The heap can be represented using an array.
+//======================
+
 public class HeapSort {
 
     int tempInput;
@@ -47,10 +59,9 @@ public class HeapSort {
     private int getKLargest(int k) {
 
         // heapify k times to get the kth largest element.
+       for (int i = 0; i <= k; i++) {
 
-        for (int i = 0; i <= k; i++) {
 
-            // heapify(heapArray, i, heapArray.length - 1);
             heapify(heapArray, 0, heapArray.length - 1 - i);
             swap(heapArray, 0, heapArray.length - 1 - i);
         }
@@ -115,20 +126,11 @@ public class HeapSort {
         A[index2] = temp;
     }
 
-    /*
-     * 27.5
-     *       
-     * 			30
-     * 
-     *		   29 29.5
-     * 
-     *		 27 26 25 28
-     * 
-     * 23 22 21 20    19 18 17 24
-     * 
-     * 15 14 13 12 11 10 9 8 7 6 5 4 
-     * 
-     */
+    //
+    // heapify makes a heap from
+    // the start element to the end
+    // element.
+    //
     public void heapify(int[] inputArray, int start, int end) {
 
         for (int i = start; i <= end; i++) {
@@ -162,6 +164,8 @@ public class HeapSort {
         }
     }
 
+    // check if any ofthe ancestor nodes 
+    // don't satisfy the heap property.
     public void swapWithAncestorCheck(int[] A, int index1, int index2) {
 
         int temp = A[index1];

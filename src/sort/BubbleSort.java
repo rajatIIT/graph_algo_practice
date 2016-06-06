@@ -1,7 +1,11 @@
 package sort;
 
-// A simple sorting algorithm
-// which continuously iterates
+
+// Very simple to implement 
+// but inefficient for most
+// cases.
+//
+// continuously iterates
 // over the array until it is 
 // sorted. While iterating,
 // it exchanges the element it
@@ -35,7 +39,8 @@ public class BubbleSort {
 
     }
 
-    // a simple check if the array is sorted. 
+    // a simple check if 
+    // the array is sorted. 
     // run in O(n) time. 
     public boolean isSorted(int[] input) {
         for (int i = 0; i < input.length - 1; i++) {
@@ -44,5 +49,7 @@ public class BubbleSort {
         }
         return true;
     }
+    
+
 
 }

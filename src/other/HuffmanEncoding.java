@@ -29,7 +29,7 @@ public class HuffmanEncoding {
 
         }
         
-    //    System.out.println(frequency.toString());
+    //    System.out.println(frequency.toString()); 
 
         // now build a treeSet using this map.
 

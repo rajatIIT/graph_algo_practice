@@ -1,5 +1,25 @@
 package sort;
 
+// Popular, efficient and simple
+// sorting algorithm. 
+//
+// Uses the concept of divide
+// and conquer to sort the 
+// array. Selects an element
+// (called pivot)
+// in the array and arranges
+// other elements relative to 
+// it. That is, smaller elements
+// before it and larger elements
+// after it. It also moves the 
+// particular element to the correct
+// position in the array. 
+//
+// It then sorts the list before
+// the element using quicksort 
+// and does so with the list 
+// after that. 
+//
 public class QuickSort {
 
     public QuickSort() {
@@ -22,7 +42,6 @@ public class QuickSort {
 
         } else if (initial == finalE - 1) {
             System.out.println("Only two element.");
-            
 
             if (input[initial] > input[finalE]) {
                 int temp = input[initial];
@@ -32,7 +51,7 @@ public class QuickSort {
 
         } else if (finalE == initial + 2) {
             
-            System.out.println("Only three element.");
+            System.out.println("Only three elements.");
 
             if (input[initial + 1] > input[initial] && input[initial + 1] > input[finalE]) {
 
@@ -56,6 +75,13 @@ public class QuickSort {
             
             System.out.println("Greater than tree. ");
 
+            // we can decide to choose any element
+            // as a pivot but a common choice is 
+            // the middle element. There are 
+            // many variants of Quicksort
+            // depending on the location of 
+            // the pivot selected. 
+            
             int pivot = (finalE - initial) / 2;
 
             // arrange elements relative to pivot index
@@ -71,8 +97,6 @@ public class QuickSort {
 
             while (!(check1 || check2)) {
 
-                
-                
                 if (input[firstPointer] > pivotElement && input[secondPointer] < pivotElement) {
                     // swap them
                     int temp = input[firstPointer];
