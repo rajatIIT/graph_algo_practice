@@ -27,7 +27,10 @@ public class GraphWithAdjList {
 
         while (true) {
 
-            // Menu-Driven Program
+            // A Menu-Driven Program
+        	// which displays a meny at the output
+        	// screen ans takes user input on what to 
+        	// do next ! 
             System.out.println("\n" + "What do you want to do?");
             System.out.println("1) Add a vertex ");
             System.out.println("2) Delete a vertex ");
@@ -40,17 +43,9 @@ public class GraphWithAdjList {
             int choice = fileRead.nextInt();
 
             if (choice == 3) {
-                // create a new graph
-
-                // input the number of vertices
-
-                // for each vertice, ask the number of vertices it is connected
-                // to.
-
                 System.out.println("Enter the number of vertices: ");
                 numberOfVertices = fileRead.nextInt();
                 allVertices = new GraphVertex[numberOfVertices + 1];
-
                 System.out.println("Is the graph Directed?(y/n)");
                 char userChoice = fileRead.next().charAt(0);
                 if (userChoice == 'y')
@@ -62,11 +57,11 @@ public class GraphWithAdjList {
                     newVertex.setId(i);
                     allVertices[i] = newVertex;
                 }
+                // take user input for each vertex. 
+                // user inputs the information about which 
+                // vertices is a particular vertex connected to.
                 for (int i = 1; i <= numberOfVertices; i++) {
-
-                    // create a adjacency list for every vertex.
-
-                    System.out
+                	System.out
                             .println("Enter the vertices to which vertex "
                                     + i
                                     + " is connected followed by enter. Enter -1 when you are finished entering.");
