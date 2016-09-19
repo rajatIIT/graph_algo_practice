@@ -8,17 +8,20 @@ import java.util.Arrays;
 // 
 // The input array is divided 
 // into sublists and which are
-// individually sorted and 
-// finally "merged". The result
+// individually sorted (using 
+// mergesort, again!), and 
+// after they are sorted,
+// we finally merge them. The result
 // is sorted.
-//
+
+
 // the way we have implemented it 
 // here is to divide the input 
 // list (the one to be sorted)
 // into two parts, sort the parts
 // individually, and then merge
 // the sorted parts. 
-//
+
 
  
 
@@ -197,13 +200,6 @@ public class MergeSort {
                                 
                             }
                             break;
-                            /*
-                             * arr1Done = true; System.out.println("1 done.");
-                             * 
-                             * } else { pointer1++;
-                             * System.out.println("pointer 1 advanced to " +
-                             * pointer1); }
-                             */
                         }
                         pointer1++;
                     } else {
